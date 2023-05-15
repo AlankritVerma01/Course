@@ -1,0 +1,46 @@
+{% extends 'template.html' %}
+{% block header %}{% block title %}UTSC Course Information{% endblock %}{% endblock %}
+{% block main %}
+	{% if session.user %}
+		<h4>Welcome, {{ session.user }}!</h4>
+		<h3>Your Reviews:</h3>
+		{% if reviews %}
+			{% for review in reviews %}
+				<li class="card" id="review-{{ review.review_id }}">
+					<a class="text-decoration-none text-reset" href="{{ review.course_id|course_page }}#review-{{ review.review_id }}">
+						<div class="card-header">
+							<h3 class="card-title">{{ review.course_id }}</h3>
+							<p class="card-subtitle">{{ "%.1f"|format(review.rating) }}/10</p>
+						</div>
+					</a>
+					<div class="card-body">
+						{{ review.content }}
+					</div>
+					<div class="card-footer text-end">
+						{{ review.timestamp | format_unix }}
+					</div>
+				</li>
+			{% endfor %}
+		{% else %}
+			<a href="{{ url_for('page_courses') }}" class="btn btn-primary">Make Your First Review!</a>
+		{% endif %}
+	{% else %}
+		<p>Welcome to the UTSC Course Information site!</p>
+		<table class="table">
+			<tr>
+				<td><a class="btn btn-primary" href="{{ url_for('page_courses') }}">Courses</a></th>
+				<td>Search for courses and view reviews and ratings by other users.</td>
+			</tr>
+			<tr>
+				<td><a class="btn btn-primary" href="{{ url_for('page_courses_tree') }}">Requisite Tree</a></th>
+				<td>Visualise course prerequisites and postrequisites.</td>
+			</tr>
+			<tr>
+				<td><a class="btn btn-primary" href="{{ url_for('page_login') }}">Register</a></th>
+				<td>Create and account and post your own reviews.</td>
+			</tr>
+		</table>
+	{% endif %}
+{% endblock %}
+
+

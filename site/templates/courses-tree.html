@@ -1,0 +1,37 @@
+{% extends 'template.html' %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/courses-tree.js') }}"></script>{% endblock %}
+{% block title %}{% block header %}Requisites Tree{% endblock %}{% endblock %}
+{% block main %}
+<form action="{{ url_for('page_courses_tree_visual') }}" method="GET">
+    <div class="mb-2 d-flex">
+        <h5>Requisite Type</h5>
+        <input class="btn btn-primary ms-auto" type="submit" value="Submit">
+    </div>
+    <div class="mb-2">
+        <input class="btn-check" type="radio" name="type" id="form-type-pre" value="pre" checked required>
+        <label class="btn btn-light" for="form-type-pre" data-bs-toggle="tooltip" title="Prerequisites of selected courses">Prerequisites</label>
+        <input class="btn-check" type="radio" name="type" id="form-type-post_partial" value="post_partial">
+        <label class="btn btn-light" for="form-type-post_partial" data-bs-toggle="tooltip" title="Courses whose prerequisites are partially satisfied by selected courses">Partial Postrequisites</label>
+        <input class="btn-check" type="radio" name="type" id="form-type-post_complete" value="post_complete">
+        <label class="btn btn-light" for="form-type-post_complete" data-bs-toggle="tooltip" title="Courses whose prerequisites are completely satisfied by selected courses">Complete Postrequisites</label>
+    </div>
+    <div class="mb-2">
+        <div class="input-group">
+            <div class="form-floating">
+                <input class="form-control" type="text" id="form-courses-search-bar" placeholder="Search Courses:">
+                <label class="form-label" for="form-courses-search-bar">Search Courses:</label>
+            </div>
+            <button class="btn btn-secondary" id="form-courses-clear" type="button">Clear Selected</button>
+        </div>
+        <div class="form-text">Note: Only MAT, CSC, and STA courses are currently available</div>
+    </div>
+    <div class="courses">
+        {% for course in courses %}
+            <div class="form-courses-check">
+                <input type="checkbox" id='form-courses-{{ course }}' name="courses" value='{{ course }}'>
+                <label for="form-courses-{{ course }}">{{ course }}</label>
+            </div>
+        {% endfor %}
+    </div>
+</form>
+{% endblock %}

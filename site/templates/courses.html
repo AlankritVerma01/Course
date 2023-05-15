@@ -1,0 +1,50 @@
+{% extends 'template.html' %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/courses.css') }}">{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/courses.js') }}"></script>{% endblock %}
+{% block header %}{% block title %}Courses{% endblock %}{% endblock %}
+{% block main %}
+<form class="mb-3" method="GET">
+	<div class="d-flex">
+		<h3 class="me-2">Sort By:</h3>
+		<input class="btn-check" type="radio" name="sort" id="form-sort-alphabet" value {{ "checked" if not request.args.sort }}>
+		<label class="btn btn-light" for="form-sort-alphabet">Alphabetical</label>
+		<input class="btn-check" type="radio" name="sort" id="form-sort-rating" value="rating" {{ "checked" if request.args.sort == "rating" }}>
+		<label class="btn btn-light" for="form-sort-rating">Average Rating</label>
+		<input class="btn-check" type="radio" name="sort" id="form-sort-reviews" value="reviews" {{ "checked" if request.args.sort == "reviews" }}>
+		<label class="btn btn-light" for="form-sort-reviews">Reviews</label>
+		<input class="btn btn-primary ms-auto" type="submit" value="Submit">
+	</div>
+</form>
+
+<form class="form-floating">
+	<input class="form-control" id="search-bar-courses" type="text" placeholder="Search Courses:">
+	<label class="form-label" for="search-bar-courses">Search Courses:</label>
+</form>
+<table class="table table-hover mt-2" id="courses-list">
+	<thead>
+		<tr class="table-primary">
+			<th>Course</th>
+			{% if request.args.sort %}
+				<th>{{ course_attribute }}</th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+		{% if request.args.sort %}
+			{% for course, attribute in courses %}
+				<tr class="courses-list-row" data-course-link="{{ course|course_page }}" draggable="true">
+					<td class="courses-row-id">{{ course }}</a></td>
+					<td>{{ attribute or "N/A" }}</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			{% for course in courses %}
+			<tr class="courses-list-row" data-course-link="{{ course|course_page }}" draggable="true">
+					<td class="courses-row-id">{{ course }}</td>
+				</tr>
+			{% endfor %}
+		{% endif %}
+	</tbody>
+</table>
+{% endblock %}
+

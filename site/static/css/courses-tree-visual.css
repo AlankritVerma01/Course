@@ -1,0 +1,61 @@
+/* Outside Elements Style */
+.legend-root {
+	/* Positioning */
+	height: 50px;
+	width: 50px;
+	/* Size */
+	border-radius: 100%;
+	/* Visual */
+	background: red;
+}
+
+/* Tree SVG Containers */
+#tree-visual-canvas {
+	/* Positioning */
+	margin: 0;
+	/* Size */
+	height: 600px;
+	/* Visual */
+	overflow: hidden;
+}
+
+#tree-visual-canvas > svg {
+	/* Size */
+	width: 100%;
+	height: 100%;
+}
+
+.svg-container {
+	/* Positioning */
+	display: inline-block;
+	position: relative;
+	/* Size */
+	width: 100%;
+	/* Visual */
+	vertical-align: top;
+	overflow: hidden;
+}
+
+.svg-content-responsive {
+	/* Positioning */
+	display: inline-block;
+	position: absolute;
+	left: 0;
+}
+
+/* Tree Elements */
+.bubble:hover {
+	/* Visual */
+	cursor: pointer;
+}
+
+.link {
+	/* Visual */
+	stroke: black;
+	stroke-opacity: 0.6;
+}
+
+.arrow {
+	/* Visual */
+	fill: black;
+}

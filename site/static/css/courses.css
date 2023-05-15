@@ -1,0 +1,5 @@
+/* Make course rows in table hoverable by cursor */
+.courses-list-row {
+	/* Visual */
+	cursor: pointer;
+}

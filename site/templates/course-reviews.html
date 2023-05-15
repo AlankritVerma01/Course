@@ -1,0 +1,45 @@
+{% if session.user %}
+<div class="mb-3">
+	<form action="/api/user/review/{{ course_id }}" method="POST">
+		<div class="review-form-comment-div">
+			<label class="form-label" for="form-review-comment">{{ "Make a review" if not user_review else "Update Review" }}</label><br>
+			<textarea class="form-control" type="text" name="comment" id="form-review-comment" class="review-form-comment">{{ user_review.content }}</textarea>
+		</div>
+		<div class="review-form-rating-div mb-2 d-flex">
+			<div class="row-100">
+				<label class="form-label" for="form-review-rating">Rating</label>
+				<span>(<output id="form-review-rating-value">{{ user_review.rating or 10 }}/10</output>)</span>
+				<input class="form-range bg-secondary rounded p-1" type="range" name="rating" id="form-review-rating", min="0", max="10", value="{{ user_review.rating or 10 }}">
+			</div>
+		</div>
+		<input class="btn btn-primary" type="submit" value="Submit" name="action" id="form-review-submit">
+		{% if user_review %}
+			<input class="btn btn-danger" type="submit" value="Delete" name="action" id="form-review-delete">
+		{% endif %}
+		
+	</form>
+</div>
+{% endif %}
+<div>
+	{% if reviews %}
+		<ul>
+		{% for review in reviews %}
+			<li class="card" id="review-{{ review.review_id }}">
+				<div class="card-header">
+					<h3 class="card-title">{{ review.username }}</h3>
+					<p class="card-subtitle">{{ "%.1f"|format(review.rating) }}/10</p>
+				</div>
+				<div class="card-body">
+					{{ review.content }}
+				</div>
+				<div class="card-footer text-end">
+					{{ review.timestamp | format_unix }}
+				</div>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No reviews yet!</p>
+	{% endif %}
+</div>
+<script src="{{ url_for('static', filename='js/course-reviews.js') }}"></script>

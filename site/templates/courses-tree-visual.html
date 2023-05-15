@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/courses-tree-visual.css') }}">{% endblock %}
+{% block scripts %}
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+	<script>
+		data = {{ data|tojson }}
+	</script>
+    <script src="{{ url_for('static', filename='js/courses-tree-visual.js') }}"></script>
+{% endblock %}
+{% block title %}Requsite Tree{% endblock %}
+{% block main %}
+    <button class="btn btn-primary me-auto" id="back-button">< Back</button>
+    <div id="tree-visual-canvas"></div>
+{% endblock %}

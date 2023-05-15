@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+{% block title %}Login/Register{% endblock %}
+
+{% block main %}
+<h1>Login</h1>
+<form class="container" action="/api/login" method="POST">
+	<label class="form-label" for="login-username">Username:</label>
+	<input class="form-control" id="login-username" type="text" name="username" required>
+	<label class="form-label" for="login-password">Password:</label>
+	<input class="form-control" id="login-password" type="password" name="password" required>
+	<input class="btn btn-primary mt-3" type="submit" value="Submit">
+</form>
+<h1>Register</h1>
+<form class="container" action="/api/register" method="POST">
+	<label class="form-label" for="register-username">Username:</label>
+	<input class="form-control" id="register-username" type="text" name="username" required>
+	<label class="form-label" for="register-password">Password:</label>
+	<input class="form-control" id="register-password" type="password" name="password" required>
+	<input class="btn btn-primary mt-3" type="submit" value="Submit">
+</form>
+{% endblock %}
